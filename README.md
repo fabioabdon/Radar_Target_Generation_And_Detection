@@ -27,8 +27,8 @@ alpha = Bsweep/Tchirp; %slope of chirps
 Simulate Target movement and calculate the beat or mixed signal for every timestamp.
 
 ```Matlab
-d0 = 80;         %initial position 
-v0 = -50;        %initial velocity
+pos = 110;         %initial position 
+vel = -20;        %initial velocity
 
 Nd=128;          % number of chirps
 Nr=1024;         % number of samples of one chirp
@@ -45,7 +45,7 @@ td=zeros(1,length(t));
 disp(length(t))
  
 for i = 1:length(t)         
-    r_t(i) = d0 + v0*t(i);
+    r_t(i) = pos + vel*t(i);
     td(i) = 2*r_t(i)/c; 
     Tx(i) = cos(2*pi*(fc*t(i) + slope*t(i)^2/2));
     Rx(i) = cos(2*pi*(fc*(t(i) - td(i)) + slope*(t(i) - td(i))^2/2));
@@ -71,7 +71,7 @@ plot(sig_fft); grid minor     % plot FFT output
 axis ([0 200 0 1]);
 xlabel('measured range');
 ```
-![result](https://github.com/godloveliang/SFND-Radar-Target-Generation-and-Detection-/blob/master/img/range_FFT.png)
+![result](https://github.com/fabioabdon/Radar_Target_Generation_And_Detection/blob/main/img/range_FFT.png)
 
 #### 4. doppler FFT (2st FFT)
 
@@ -92,7 +92,7 @@ doppler_axis = linspace(-100,100,Nd);
 range_axis = linspace(-200,200,Nr/2)*((Nr/2)/400);
 figure('Name','Range Doppler Map'),surf(doppler_axis,range_axis,RDM);
 ```
-![result](https://github.com/godloveliang/SFND-Radar-Target-Generation-and-Detection-/blob/master/img/2D_FFT.PNG)
+![result](https://github.com/fabioabdon/Radar_Target_Generation_And_Detection/blob/main/img/2D_FFT.PNG)
 
 #### 5. 2D CFAR
 Implement the 2D CFAR process on the output of 2D FFT operation, i.e the Range Doppler Map.
@@ -159,4 +159,4 @@ end
 Training, Guard cells and offset are selected by increasing and decreasing to match the image shared in walkthrough.
 
 
-![result](https://github.com/godloveliang/SFND-Radar-Target-Generation-and-Detection-/blob/master/img/CA_CFAR.PNG)
+![result](https://github.com/fabioabdon/Radar_Target_Generation_And_Detection/blob/main/img/CA_CFAR.PNG)
